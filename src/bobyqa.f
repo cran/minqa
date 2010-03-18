@@ -1,7 +1,6 @@
-      SUBROUTINE BOBYQA (N,NPT,X,XL,XU,RHOBEG,RHOEND,IPRINT,
-     1  MAXFUN,W,FVAL)
-      IMPLICIT REAL*8 (A-H,O-Z)
-      DIMENSION X(*),XL(*),XU(*),W(*),FVAL(*)
+      SUBROUTINE BOBYQA (N,NPT,X,XL,XU,RHOBEG,RHOEND,IPRINT,MAXFUN,W)
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      DIMENSION X(*),XL(*),XU(*),W(*)
 C
 C     This subroutine seeks the least value of a function of many variables,
 C     by applying a trust region method that forms quadratic models by
@@ -39,10 +38,11 @@ C     MAXFUN must be set to an upper bound on the number of calls of CALFUN.
 C     The array W will be used for working space. Its length must be at least
 C       (NPT+5)*(NPT+N)+3*N*(N+5)/2.
 C
-C     SUBROUTINE CALFUN (N,X,F) has to be provided by the user. It must set
-C     F to the value of the objective function for the current values of the
-C     variables X(1),X(2),...,X(N), which are generated automatically in a
-C     way that satisfies the bounds given in XL and XU.
+C     DOUBLE PRECISION FUNCTION CALFUN (N,X,IP) has to be provided by
+C     the user. It returns the value of the objective function for
+C     the current values of the variables X(1),X(2),...,X(N), which are
+C     generated automatically in a way that satisfies the bounds given
+C     in XL and XU.
 C
 C     Return if the value of NPT is unacceptable.
 C
@@ -50,10 +50,11 @@ C  Modified by John Nash to put the setup controls into the R code.
       NP=N+1
 CJ  Comment out to END IF as in R code
       IF (NPT .LT. N+2 .OR. NPT .GT. ((N+2)*NP)/2) THEN
-          PRINT 10
-   10     FORMAT (/4X,'Return from BOBYQA because NPT is not in',
-     1      ' the required interval')
-          GO TO 40
+         CALL minqer(10)
+c$$$          PRINT 10
+c$$$   10     FORMAT (/4X,'Return from BOBYQA because NPT is not in',
+c$$$     1      ' the required interval')
+c$$$          GO TO 40
       END IF
 C
 C     Partition the working space array, so that different parts of it can
@@ -90,10 +91,11 @@ C
       DO 30 J=1,N
       TEMP=XU(J)-XL(J)
       IF (TEMP .LT. RHOBEG+RHOBEG) THEN
-          PRINT 20
-   20     FORMAT (/4X,'Return from BOBYQA because one of the',
-     1      ' differences XU(I)-XL(I)'/6X,' is less than 2*RHOBEG.')
-          GO TO 40
+         CALL minqer(20)
+c$$$          PRINT 20
+c$$$   20     FORMAT (/4X,'Return from BOBYQA because one of the',
+c$$$     1      ' differences XU(I)-XL(I)'/6X,' is less than 2*RHOBEG.')
+c$$$          GO TO 40
       END IF
       JSL=ISL+J-1
       JSU=JSL+N
@@ -126,7 +128,7 @@ C     Make the call of BOBYQB.
 C
       CALL BOBYQB (N,NPT,X,XL,XU,RHOBEG,RHOEND,IPRINT,MAXFUN,W(IXB),
      1  W(IXP),W(IFV),W(IXO),W(IGO),W(IHQ),W(IPQ),W(IBMAT),W(IZMAT),
-     2  NDIM,W(ISL),W(ISU),W(IXN),W(IXA),W(ID),W(IVL),W(IW),FVAL)
-   40 RETURN
+     2  NDIM,W(ISL),W(ISU),W(IXN),W(IXA),W(ID),W(IVL),W(IW))
+      RETURN
       END
 

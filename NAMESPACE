@@ -1,8 +1,6 @@
-export(
-   "newuoa",
-   "newuoa.control",
-   "bobyqa",
-   "bobyqa.control",
-   "uobyqa",
-   "uobyqa.control")
+useDynLib(minqa, .registration = TRUE)
+
+export(bobyqa, newuoa, uobyqa)
+
+S3method(print, minqa)
 

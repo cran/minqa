@@ -1,5 +1,5 @@
       SUBROUTINE NEWUOA (N,NPT,X,RHOBEG,RHOEND,IPRINT,MAXFUN,W)
-      IMPLICIT REAL*8 (A-H,O-Z)
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       DIMENSION X(*),W(*)
 C
 C     This subroutine seeks the least value of a function of many variables,
@@ -38,10 +38,11 @@ C
       NP=N+1
       NPTM=NPT-NP
       IF (NPT .LT. N+2 .OR. NPT .GT. ((N+2)*NP)/2) THEN
-          PRINT 10
-   10     FORMAT (/4X,'Return from NEWUOA because NPT is not in',
-     1      ' the required interval')
-          GO TO 20
+         CALL minqer(101)
+c$$$          PRINT 10
+c$$$   10     FORMAT (/4X,'Return from NEWUOA because NPT is not in',
+c$$$     1      ' the required interval')
+c$$$          GO TO 20
       END IF
       NDIM=NPT+N
       IXB=1
@@ -65,6 +66,6 @@ C
       CALL NEWUOB (N,NPT,X,RHOBEG,RHOEND,IPRINT,MAXFUN,W(IXB),
      1  W(IXO),W(IXN),W(IXP),W(IFV),W(IGQ),W(IHQ),W(IPQ),W(IBMAT),
      2  W(IZMAT),NDIM,W(ID),W(IVL),W(IW))
-   20 RETURN
+      RETURN
       END
 

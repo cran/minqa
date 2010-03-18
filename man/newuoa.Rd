@@ -8,7 +8,7 @@
  
 }
 \usage{
-newuoa(par, fn, control = newuoa.control(), \dots)
+newuoa(par, fn, control = list(), \dots)
 }
 \arguments{
  \item{par}{A numeric vector of starting estimates.  }
@@ -16,20 +16,24 @@ newuoa(par, fn, control = newuoa.control(), \dots)
    supplied set of parameters \code{par} using auxiliary data in \dots.
    The first argument of \code{fn} must be \code{par}. }
  \item{control}{
-    An optional list of control settings.  See \code{\link{newuoa.control}} for
+    An optional list of control settings.  See the details section for
     the names of the settable control values and their effect.
 }
  \item{\dots}{Further arguments to be passed to \code{fn}.}
 }
 \details{
   Functions \code{fn} must return a numeric value.
-  The \code{control} argument is a list;  see \code{\link{newuoa.control}} for
-    details.
+  The \code{control} argument is a list;
+
+  Powell's Fortran code has been slightly modified (thanks to Doug Bates for 
+  help on this) to avoid use of PRINT statements. Output is now via calls to
+  C routines set up to work with the routines BOBYQA, NEWUOA and UOBYQA.
   }
 \value{
   A list with components:
   \item{par}{The best set of parameters found.}
-  \item{fvalue}{The value of the objective at the best set of parameters found.}
+  \item{fval}{The value of the objective at the best set of parameters found.}
+  \item{feval}{Number of function evaluations to determine the optimum}
 }
 \references{
   M. J. D. Powell, "The NEWUOA software for unconstrained optimization
@@ -56,11 +60,10 @@ newuoa(par, fn, control = newuoa.control(), \dots)
 \seealso{\code{\link{optim}}, \code{\link{nlminb}}}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
-    x1 <- x[1]
-    x2 <- x[2]
-    100 * (x2 - x1 * x1)^2 + (1 - x1)^2
+    100 * (x[2] - x[1]^2)^2 + (1 - x[1])^2
 }
-x2 <- newuoa(fn=fr,par=c(1,2))
+(x2 <- newuoa(c(1, 2), fr))
+## => optimum at c(1, 1) with fval = 0
 }
 \keyword{nonlinear}
 \keyword{optimize}

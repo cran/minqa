@@ -10,10 +10,9 @@
 ##' @return an environment containing the control settings
 commonArgs <- function(par, fn, ctrl, rho) {
     rho$n <- n <- length(rho$par <- as.double(par))
-    stopifnot(all(is.finite(par)),# n > 1,
+    stopifnot(all(is.finite(par)),
               is.function(fn),
               length(formals(fn)) >= 1)
-    rho$.par. <- numeric(n)             # argument for internal function
     rho$.feval. <- integer(1)           # function evaluation counter
 
     ## We use all possible control settings in the default.
@@ -112,10 +111,6 @@ bobyqa <- function(par, fn, lower = -Inf, upper = Inf, control = list(), ...)
         }
     }
 
-    ## force one evaluation of fn1 to check that it works
-    .par.[] <- par
-    fn1(.par.)
-
     .Call(bobyqa_cpp, par, lower, upper, ctrl, fn1)
 }
 
@@ -134,10 +129,8 @@ bobyqa <- function(par, fn, lower = -Inf, upper = Inf, control = list(), ...)
 ##' @return a list with S3 class c("newuoa", "minqa")
 newuoa <- function(par, fn, control = list(), ...)
 {
-    ctrl <- commonArgs(par, fn, control, environment())
+    ctrl <- commonArgs(par + 0, fn, control, environment())
     fn1 <- function(x) fn(x, ...)
-    .par.[] <- par            # force an evaluation
-    fn1(.par.)
 
     .Call(newuoa_cpp, par, ctrl, fn1)
 }
@@ -157,10 +150,8 @@ newuoa <- function(par, fn, control = list(), ...)
 ##' @return a list with S3 class uobyqa
 uobyqa <- function(par, fn, control = list(), ...)
 {
-    ctrl <- commonArgs(par, fn, control, environment())
+    ctrl <- commonArgs(par + 0, fn, control, environment())
     fn1 <- function(x) fn(x, ...)
-    .par.[] <- par            # force an evaluation
-    fn1(.par.)
 
     .Call(uobyqa_cpp, par, ctrl, fn1)
 }

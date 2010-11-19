@@ -1,4 +1,5 @@
-      SUBROUTINE BOBYQA (N,NPT,X,XL,XU,RHOBEG,RHOEND,IPRINT,MAXFUN,W)
+      SUBROUTINE BOBYQA (N,NPT,X,XL,XU,RHOBEG,RHOEND,IPRINT,
+     1 MAXFUN,W,IERR)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       DIMENSION X(*),XL(*),XU(*),W(*)
 C
@@ -37,6 +38,9 @@ C       value of F with its variables are output if IPRINT=3.
 C     MAXFUN must be set to an upper bound on the number of calls of CALFUN.
 C     The array W will be used for working space. Its length must be at least
 C       (NPT+5)*(NPT+N)+3*N*(N+5)/2.
+CJN   Add IERR to tell what the error is to minqer.
+C     IERR gives an error code that is interpreted by minqer interface routine.
+C       and passed back to minqa.R
 C
 C     DOUBLE PRECISION FUNCTION CALFUN (N,X,IP) has to be provided by
 C     the user. It returns the value of the objective function for
@@ -50,11 +54,14 @@ C  Modified by John Nash to put the setup controls into the R code.
       NP=N+1
 CJ  Comment out to END IF as in R code
       IF (NPT .LT. N+2 .OR. NPT .GT. ((N+2)*NP)/2) THEN
-         CALL minqer(10)
+CJN         CALL minqer(10)
 c$$$          PRINT 10
 c$$$   10     FORMAT (/4X,'Return from BOBYQA because NPT is not in',
 c$$$     1      ' the required interval')
 c$$$          GO TO 40
+          IERR = 10
+CJN    Fail out NPT has unacceptable value
+          GO TO 40
       END IF
 C
 C     Partition the working space array, so that different parts of it can
@@ -79,6 +86,8 @@ C
       ID=IXA+N
       IVL=ID+N
       IW=IVL+NDIM
+CJN 100807 to ensure a defined value for the return code
+      IERR = 0
 C
 C     Return if there is insufficient space between the bounds. Modify the
 C     initial X if necessary in order to avoid conflicts between the bounds
@@ -91,11 +100,13 @@ C
       DO 30 J=1,N
       TEMP=XU(J)-XL(J)
       IF (TEMP .LT. RHOBEG+RHOBEG) THEN
-         CALL minqer(20)
+CJN         CALL minqer(20)
 c$$$          PRINT 20
 c$$$   20     FORMAT (/4X,'Return from BOBYQA because one of the',
 c$$$     1      ' differences XU(I)-XL(I)'/6X,' is less than 2*RHOBEG.')
 c$$$          GO TO 40
+         IERR = 20
+         GOTO 40
       END IF
       JSL=ISL+J-1
       JSU=JSL+N
@@ -128,7 +139,8 @@ C     Make the call of BOBYQB.
 C
       CALL BOBYQB (N,NPT,X,XL,XU,RHOBEG,RHOEND,IPRINT,MAXFUN,W(IXB),
      1  W(IXP),W(IFV),W(IXO),W(IGO),W(IHQ),W(IPQ),W(IBMAT),W(IZMAT),
-     2  NDIM,W(ISL),W(ISU),W(IXN),W(IXA),W(ID),W(IVL),W(IW))
-      RETURN
+     2  NDIM,W(ISL),W(ISU),W(IXN),W(IXA),W(ID),W(IVL),W(IW), IERR)
+ 40   RETURN
+CJN Added 100807 -- put label 40     
       END
 

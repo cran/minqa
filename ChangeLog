@@ -1,3 +1,21 @@
+2011-02-28  John Nash <nashjc@uottawa.ca>
+
+        * DESCRIPTION (Version): New minor version number
+
+	* R/minqa.R fix npt to min(n+2, 2*n) in call
+
+2011-02-02  Douglas Bates  <bates@stat.wisc.edu>
+
+	* DESCRIPTION (Version): New minor version number
+
+	* src/minqa.cpp (calfun): check for finite value of objective
+	function.
+
+2011-01-27  Douglas Bates  <bates@stat.wisc.edu>
+
+	* src/minqa.cpp: Expand RCPP_FUNCTION_X macros to make debugging
+	easier. 
+
 2010-11-19  Douglas Bates  <bates@stat.wisc.edu>
 
 	* src/Makevars (PKG_LIBS): Change to the backticks version

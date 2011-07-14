@@ -1,3 +1,17 @@
+2011-09-30  K Mullen <kmullen@nist.gov>
+	* src/minqa.cpp brought in patch contributed by Ben Bolker. 
+
+2011-07-14  John Nash <nashjc@uottawa.ca>
+    
+        * man/uobyqa.Rd: corrected output names in documentation. Added msg.
+        * man/newuoa.Rd: corrected output names in documentation. Added msg.
+        * man/bobyqa.Rd: corrected output names in documentation. Added msg.
+
+2011-07-11  John Nash <nashjc@uottawa.ca>, Kate Mullen <kmullen@nist.gov>
+	
+	* R/minqa.R:  bobyqa bug fixes thanks to Ben Bolker: fixed rhobeg 
+	intitialization problem and issue with parscale.
+
 2011-02-28  John Nash <nashjc@uottawa.ca>
 
         * DESCRIPTION (Version): New minor version number

@@ -22,20 +22,22 @@ commonArgs <- function(par, fn, ctrl, rho) {
 ##                           obstop=TRUE, force.start=FALSE)
     cc <- do.call(function(npt = min(n+2L, 2L * n), rhobeg = NA,
                            rhoend = NA, iprint = 0L, maxfun=10000L,
-                           obstop=TRUE, force.start=FALSE)
+                           obstop=TRUE, force.start=FALSE,...) {
 
-                  list(npt = npt, rhobeg = rhobeg, rhoend = rhoend,
-                       iprint = iprint, maxfun = maxfun, obstop = obstop,
-                       force.start = force.start), ctrl)
+      if (length(list(...))>0) warning("unused control arguments ignored")
+      list(npt = npt, rhobeg = rhobeg, rhoend = rhoend,
+           iprint = iprint, maxfun = maxfun, obstop = obstop,
+           force.start = force.start)
+      }, ctrl)
 
-    ## Create and populate and environment
+    ## Create and populate an environment
     ctrl <- new.env(parent = emptyenv()) # ctrl environment should not chain
     lapply(names(cc), function(nm) assign(nm, cc[[nm]], envir = ctrl))
 
     ## Adjust and check npt
-    ctrl$npt <- as.integer(max(n + 2, min(ctrl$npt, (n+1)*(n+2)/2)))
+    ctrl$npt <- as.integer(max(n + 2L, min(ctrl$npt, ((n+1L)*(n+2L)) %/% 2L)))
     if (ctrl$npt > (2 * n + 1))
-        warning("Setting 'npt' larger than 2 * length(par)+1 not recommended.")
+        warning("Setting npt > 2 * length(par) + 1 is not recommended.")
 
     ## Check and adjust rhobeg and rhoend
     if (is.na(ctrl$rhobeg))
@@ -45,14 +47,14 @@ commonArgs <- function(par, fn, ctrl, rho) {
 
     ## Check recommended range of maxfun
     if (ctrl$maxfun < 10 * n^2)
-        warning("'maxfun' less than 10*length(par)^2 not recommended.")
+        warning("maxfun < 10 * length(par)^2 is not recommended.")
     ctrl
 }
 
 ##' Nonlinear optimization with box constraints
 ##'
 ##' Minimize a function of many variables subject to box constraints
-##' by a trust region method ##' that forms quadratic models by 
+##' by a trust region method that forms quadratic models by 
 ##' interpolation, using the BOBYQA code written by Mike Powell.
 ##' 
 ##' @param par numeric vector of starting parameters (length > 1)
@@ -69,10 +71,13 @@ commonArgs <- function(par, fn, ctrl, rho) {
 
 bobyqa <- function(par, fn, lower = -Inf, upper = Inf, control = list(), ...)
 {
+    nn <- names(par) 
     ctrl <- commonArgs(par, fn, control, environment())
     n <- length(par)
-    fn1 <- function(x) fn(x, ...) # fn1 takes exactly 1 argument
-    
+    fn1 <- function(x) {  # fn1 takes exactly 1 argument
+      names(x) <- nn 
+      fn(x, ...) 
+    }
     ## check the upper and lower arguments, adjusting if necessary
     lower <- as.double(lower); upper <- as.double(upper)
     if (length(lower) == 1) lower <- rep(lower, n)
@@ -88,16 +93,16 @@ bobyqa <- function(par, fn, lower = -Inf, upper = Inf, control = list(), ...)
     }
     rng <- upper - lower
 
+    
+    if (any(rng < 2 * ctrl$rhobeg)) {
+        warning("All upper - lower must be >= 2*rhobeg. Changing rhobeg") 
+        ctrl$rhobeg <- 0.2 * min(rng)
+    }
     verb <- 1 < (ctrl$iprint <- as.integer(ctrl$iprint))
     if (verb) {
         cat("npt =", ctrl$npt, ", n = ",n,"\n")
         cat("rhobeg = ", ctrl$rhobeg,", rhoend = ", ctrl$rhoend, "\n")
     }
-    if (any(rng < 2 * ctrl$rhobeg)) {
-        warning("All upper - lower must be >= 2*rhobeg. Changing rhobeg") 
-        rhobeg <- 0.2 * min(rng)
-    }
-    
     ## Modifications to par if too close to boundary
     if (all(is.finite(upper)) && all(is.finite(lower)) &&
         all(par >= lower) && all(par <= upper) ) {
@@ -140,7 +145,7 @@ bobyqa <- function(par, fn, lower = -Inf, upper = Inf, control = list(), ...)
     } else { 
 	retlst$msg<-"Normal exit from bobyqa"
     }
-    return(retlst)
+    retlst # return(retlst)
 }
 
 ##' An R interface to the NEWUOA implementation of Powell
@@ -158,9 +163,13 @@ bobyqa <- function(par, fn, lower = -Inf, upper = Inf, control = list(), ...)
 ##' @return a list with S3 class c("newuoa", "minqa")
 newuoa <- function(par, fn, control = list(), ...)
 {
+    nn <- names(par) 
     ctrl <- commonArgs(par + 0, fn, control, environment())
-    fn1 <- function(x) fn(x, ...)
-
+    
+    fn1 <- function(x) {  # fn1 takes exactly 1 argument
+      names(x) <- nn 
+      fn(x, ...) 
+    }
     retlst<-.Call(newuoa_cpp, par, ctrl, fn1)
 # JN 20100810 
     if (retlst$ierr > 0){
@@ -182,7 +191,7 @@ newuoa <- function(par, fn, control = list(), ...)
     } else { 
 	retlst$msg<-"Normal exit from newuoa"
     }
-    return(retlst)
+    retlst # return(retlst)
 }
 
 
@@ -202,10 +211,13 @@ newuoa <- function(par, fn, control = list(), ...)
 ##'
 ##' @return a list with S3 class uobyqa
 uobyqa <- function(par, fn, control = list(), ...)
-{
+{   nn <- names(par) 
     ctrl <- commonArgs(par + 0, fn, control, environment())
-    fn1 <- function(x) fn(x, ...)
-
+    
+    fn1 <- function(x) {  # fn1 takes exactly 1 argument
+      names(x) <- nn 
+      fn(x, ...) 
+    }
      retlst<-.Call(uobyqa_cpp, par, ctrl, fn1)
 
 # JN 20100810 
@@ -222,7 +234,7 @@ uobyqa <- function(par, fn, control = list(), ...)
     } else { 
 	retlst$msg<-"Normal exit from uobyqa"
     }
-    return(retlst)
+    retlst # return(retlst)
 }
 
 ##' Print method for minqa objects (S3)

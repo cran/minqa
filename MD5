@@ -1,5 +1,5 @@
-da874abc9505e3c37ed20d1ed708257a *ChangeLog
-ad1232af8ab7794b1693172704d470b2 *DESCRIPTION
+bb48b747b07baef54bb8031b24e2beb9 *ChangeLog
+d1c7be702a6fb1f6f97e8e7fbcc02180 *DESCRIPTION
 18ff34ea5dab5b67c03271d56e9d4e9d *NAMESPACE
 aea310c5711e078286812891860adfd0 *R/minqa.R
 e32fedf360022b4a58e73b2be957cbde *man/bobyqa.Rd
@@ -13,7 +13,7 @@ be14aae6e6551ed6390609d374cf32c1 *src/biglag.f
 aefbee423130990afc1110739a0ef0d5 *src/bobyqa.f
 89a1b0e5059f9c63adff118f71c1ca81 *src/bobyqb.f
 633f3dab52b4f1dae44000da6c718b3c *src/lagmax.f
-7d4668c5dccdd9169ccdd69985130dec *src/minqa.cpp
+43bdb2a8ace2cffac9dc1f29913655ae *src/minqa.cpp
 996f27037a11bdd13fd9d40305e949fc *src/newuoa.f
 5957b0ebc33332be0ed63445763c6aae *src/newuob.f
 034f2ebab5c9e9c50de0aaa2874aa01d *src/prelim.f

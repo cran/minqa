@@ -1,3 +1,9 @@
+2012-05-07 K Mullen <mullenkate@gmail.com>
+	* R/minqa.R: Added check on length of obj. function, with stop if
+	obj. function does not return a numeric value of length 1.  As
+	Hans Borchers pointed out, R would crash if bobyqa was given an
+	objective function that returned a vector with length greater than
+	1.
 2012-03-14 Douglas Bates  <bates@stat.wisc.edu>
 	* src/minqa.cpp: avoid evaluating an Rcpp::Function object
 	and use direct calls to R's eval (which shows up as ::Rf_eval in

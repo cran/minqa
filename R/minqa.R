@@ -78,6 +78,9 @@ bobyqa <- function(par, fn, lower = -Inf, upper = Inf, control = list(), ...)
       names(x) <- nn 
       fn(x, ...) 
     }
+    checkObj <- fn1(par)
+    if(length(checkObj) > 1 || !is.numeric(checkObj))
+      stop("Objective function must return a single numeric value.")
     ## check the upper and lower arguments, adjusting if necessary
     lower <- as.double(lower); upper <- as.double(upper)
     if (length(lower) == 1) lower <- rep(lower, n)
@@ -170,6 +173,9 @@ newuoa <- function(par, fn, control = list(), ...)
       names(x) <- nn 
       fn(x, ...) 
     }
+    checkObj <- fn1(par)
+    if(length(checkObj) > 1 || !is.numeric(checkObj))
+      stop("Objective function must return a single numeric value.")
     retlst<-.Call(newuoa_cpp, par, ctrl, fn1)
 # JN 20100810 
     if (retlst$ierr > 0){
@@ -218,8 +224,11 @@ uobyqa <- function(par, fn, control = list(), ...)
       names(x) <- nn 
       fn(x, ...) 
     }
-     retlst<-.Call(uobyqa_cpp, par, ctrl, fn1)
-
+    checkObj <- fn1(par)
+    if(length(checkObj) > 1 || !is.numeric(checkObj))
+      stop("Objective function must return a single numeric value.")
+    retlst<-.Call(uobyqa_cpp, par, ctrl, fn1)
+    
 # JN 20100810 
     if (retlst$ierr > 0){
 ##	cat("ierr = ",retlst$ierr,"\n")

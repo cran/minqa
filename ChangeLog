@@ -1,3 +1,6 @@
+2014-02-03  K Mullen <mullenkate@gmail.com>
+	DESCRIPTION:  Rcpp is now in Imports, not Depends. 
+	NAMESPACE: 'import(Rcpp)' added.  
 2012-05-07 K Mullen <mullenkate@gmail.com>
 	* R/minqa.R: Added check on length of obj. function, with stop if
 	obj. function does not return a numeric value of length 1.  As

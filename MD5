@@ -1,10 +1,10 @@
-aa91f54aef8ce408f6cbb69885812a84 *ChangeLog
-c05bc755ed7dba1f19d534657eeab1ee *DESCRIPTION
+a8b7dfc755fb04ff55eec51ef9bda279 *ChangeLog
+8839975cd2d5270d363d7bb3a6f11cee *DESCRIPTION
 f01ff73394d9c697a24211f3e54ad145 *NAMESPACE
-d88b8cadc239373e8967dc640887d0de *R/minqa.R
-e32fedf360022b4a58e73b2be957cbde *man/bobyqa.Rd
-d7028e4d967d4e25577118a489e902e9 *man/newuoa.Rd
-75cd37a65398d4bbc248503d60244617 *man/uobyqa.Rd
+aae64ab96c25bdc2cf71d493cc6c2f99 *R/minqa.R
+6349999aed75efa8afce1e9e56db610d *man/bobyqa.Rd
+6566309b9f1643a9b397dc3d523989f8 *man/newuoa.Rd
+41e3efa2069146b80ee7cb87ff37f676 *man/uobyqa.Rd
 9fdd9d176f2dc1bda212c941b50cd9ed *src/Makevars
 5d035c0d8a1c02024ebbb6f58bf1ae40 *src/Makevars.win
 81597a016bcaeda7a9d4e019ebc47cea *src/altmov.f
@@ -13,7 +13,7 @@ be14aae6e6551ed6390609d374cf32c1 *src/biglag.f
 aefbee423130990afc1110739a0ef0d5 *src/bobyqa.f
 89a1b0e5059f9c63adff118f71c1ca81 *src/bobyqb.f
 633f3dab52b4f1dae44000da6c718b3c *src/lagmax.f
-43bdb2a8ace2cffac9dc1f29913655ae *src/minqa.cpp
+41ccca902fb30547ecaa19f253f02624 *src/minqa.cpp
 996f27037a11bdd13fd9d40305e949fc *src/newuoa.f
 5957b0ebc33332be0ed63445763c6aae *src/newuob.f
 034f2ebab5c9e9c50de0aaa2874aa01d *src/prelim.f

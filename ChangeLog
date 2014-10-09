@@ -1,3 +1,19 @@
+2014-10-03  K Mullen <mullenkate@gmail.com>
+        * src/minqa.cpp:  Changed format of output at return to add labels.
+	This affects output for iprint > 0.
+
+	* src/minqa.cpp: When rho changes and is printed, added labels to
+	output.  This affects output for iprint > 1.
+
+	* R/minqa.R:  Now print start parameter values and obj. function
+	value when iprint > 0.
+
+	* R/minqa.cpp:  If iprint > 3, the objective function value and
+	corresponding variables are output every \code{iprint} evaluations.
+	
+	* man/uobyqa.Rd: iprint updated.
+	* man/newuoa.Rd: iprint updated.
+	* man/bobyqa.Rd: iprint updated.
 2014-02-03  K Mullen <mullenkate@gmail.com>
 	DESCRIPTION:  Rcpp is now in Imports, not Depends. 
 	NAMESPACE: 'import(Rcpp)' added.  

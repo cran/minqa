@@ -1,5 +1,5 @@
-a8b7dfc755fb04ff55eec51ef9bda279 *ChangeLog
-8839975cd2d5270d363d7bb3a6f11cee *DESCRIPTION
+d0f6f9e36f3b1a6078b931db70684316 *ChangeLog
+b67e9d4a0ff8f79755cc56eeaa505458 *DESCRIPTION
 f01ff73394d9c697a24211f3e54ad145 *NAMESPACE
 aae64ab96c25bdc2cf71d493cc6c2f99 *R/minqa.R
 6349999aed75efa8afce1e9e56db610d *man/bobyqa.Rd
@@ -7,7 +7,7 @@ aae64ab96c25bdc2cf71d493cc6c2f99 *R/minqa.R
 41e3efa2069146b80ee7cb87ff37f676 *man/uobyqa.Rd
 9fdd9d176f2dc1bda212c941b50cd9ed *src/Makevars
 5d035c0d8a1c02024ebbb6f58bf1ae40 *src/Makevars.win
-81597a016bcaeda7a9d4e019ebc47cea *src/altmov.f
+affa03c659b418a66d86b38e75edbe03 *src/altmov.f
 92d72eb69029e0b29bb78f6c6d820c9d *src/bigden.f
 be14aae6e6551ed6390609d374cf32c1 *src/biglag.f
 aefbee423130990afc1110739a0ef0d5 *src/bobyqa.f

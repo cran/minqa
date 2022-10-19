@@ -167,6 +167,7 @@ C
 C
 C     Construct XNEW in a way that satisfies the bound constraints exactly.
 C
+      IBDSAV=0
       DO 90 I=1,N
       TEMP=XOPT(I)+STPSAV*(XPT(KSAV,I)-XOPT(I))
    90 XNEW(I)=DMAX1(SL(I),DMIN1(SU(I),TEMP))

@@ -1,3 +1,10 @@
+2022-10-18 K Mullen <mullenkate@gmail.com>
+	* src/altmov.f: Added initialization of IBDSAV to 0 at line 170.
+	Ben Bolker reported a case that triggered a segfault that I traced
+	to this variable being used uninitialized.
+	* DESCRIPTION: CRAN now says the Title field should be in title case,
+	changed to comply.
+
 2014-10-03  K Mullen <mullenkate@gmail.com>
         * src/minqa.cpp:  Changed format of output at return to add labels.
 	This affects output for iprint > 0.
@@ -16,7 +23,7 @@
 	* man/bobyqa.Rd: iprint updated.
 2014-02-03  K Mullen <mullenkate@gmail.com>
 	DESCRIPTION:  Rcpp is now in Imports, not Depends. 
-	NAMESPACE: 'import(Rcpp)' added.  
+	NAMESPACE: 'import(Rcpp)' added.   
 2012-05-07 K Mullen <mullenkate@gmail.com>
 	* R/minqa.R: Added check on length of obj. function, with stop if
 	obj. function does not return a numeric value of length 1.  As

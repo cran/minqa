@@ -1,3 +1,7 @@
+2023-09-09 K Mullen <mullenkate@gmail.com>
+	* src/bigden.f, src/biglag.f, src/rescue.f, src/trsapp.f,
+	src/trsbox.f: changed DFLOAT --> DBLE
+	
 2022-10-18 K Mullen <mullenkate@gmail.com>
 	* src/altmov.f: Added initialization of IBDSAV to 0 at line 170.
 	Ben Bolker reported a case that triggered a segfault that I traced

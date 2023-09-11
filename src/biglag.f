@@ -135,9 +135,9 @@ C
       TAUOLD=TAUBEG
       ISAVE=0
       IU=49
-      TEMP=TWOPI/DFLOAT(IU+1)
+      TEMP=TWOPI/DBLE(IU+1)
       DO 140 I=1,IU
-      ANGLE=DFLOAT(I)*TEMP
+      ANGLE=DBLE(I)*TEMP
       CTH=DCOS(ANGLE)
       STH=DSIN(ANGLE)
       TAU=CF1+(CF2+CF4*CTH)*CTH+(CF3+CF5*CTH)*STH
@@ -157,7 +157,7 @@ C
           TEMPB=TEMPB-TAUMAX
           STEP=HALF*(TEMPA-TEMPB)/(TEMPA+TEMPB)
       END IF
-      ANGLE=TEMP*(DFLOAT(ISAVE)+STEP)
+      ANGLE=TEMP*(DBLE(ISAVE)+STEP)
 C
 C     Calculate the new D and GD. Then test for convergence.
 C

@@ -2,7 +2,7 @@ Package: minqa
 Type: Package
 Title: Derivative-Free Optimization Algorithms by Quadratic
         Approximation
-Version: 1.2.5
+Version: 1.2.6
 Author: Douglas Bates, Katharine M. Mullen, John C. Nash, Ravi Varadhan
 Maintainer: Katharine M. Mullen <katharine.mullen@stat.ucla.edu>
 Description: Derivative-free optimization by quadratic approximation
@@ -14,6 +14,6 @@ Imports: Rcpp (>= 0.9.10)
 LinkingTo: Rcpp
 SystemRequirements: GNU make
 NeedsCompilation: yes
-Packaged: 2022-10-19 04:27:20 UTC; kmm-windog
+Packaged: 2023-09-11 04:59:33 UTC; kmm-windog
 Repository: CRAN
-Date/Publication: 2022-10-19 07:32:37 UTC
+Date/Publication: 2023-09-11 05:40:02 UTC

@@ -1,3 +1,6 @@
+2024-05-19 K Mullen <mullenkate@gmail.com>
+	* src/*f: changed syntax of DO loops to avoid warnings / errors
+	triggered by more modern Fortan compilers 
 2023-09-09 K Mullen <mullenkate@gmail.com>
 	* src/bigden.f, src/biglag.f, src/rescue.f, src/trsapp.f,
 	src/trsbox.f: changed DFLOAT --> DBLE

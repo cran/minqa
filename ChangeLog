@@ -1,3 +1,6 @@
+2024-09-17 K Mullen <mullenkate@gmail.com>
+	src/Makevars: remove reference to deprecated "Rcpp:::LdFlags()"
+	DESCRIPTION: remove Author field, add Authors@R field
 2024-05-19 K Mullen <mullenkate@gmail.com>
 	* src/*f: changed syntax of DO loops to avoid warnings / errors
 	triggered by more modern Fortan compilers 
